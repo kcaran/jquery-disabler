@@ -379,7 +379,7 @@
 			// wrap a SPAN around the text being displayed and place the SPAN beside the element.  This SPAN will be removed when this operation is undone.
 			var style = "";
 			if ($.trim(text).length === 0) {
-				style = "style=\"display: none; \"";
+				text = '&nbsp;';
 			}
 			inp.parent().after('<span class="' + classReadOnlyRemoveMe + '" ' + style + '>' + text + '</span>');
 			
