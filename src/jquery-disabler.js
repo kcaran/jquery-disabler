@@ -64,8 +64,7 @@
 		_ensureBoolean : function(value) {
 			var bool = false;
 			if (this._isNotNullAndNotUndefined(value)) {
-				var flag = new String(value).toLowerCase();
-				bool = flag === "true";
+				bool = value.toString().toLowerCase() === "true";
 			}
 			return bool;
 		},
@@ -199,9 +198,9 @@
 			this._doReadOnlyIteration(topElement, readOnlyFlag, hiddenInputs, disabling);
 			
 			var plugin = this;
-			var selector = this.options.expression 
-				+ ", span." + classReadOnlyText
-				+ ", ." + classDisablerHideReadOnly;			
+			selector = this.options.expression +
+				", span." + classReadOnlyText +
+				", ." + classDisablerHideReadOnly;			
 			topElement.find(selector).each(function(index) {
 				var inp = $(this);		
 				var roie = $.Event("readOnlyIteration");
@@ -467,7 +466,7 @@
 						if (inp.hasClass("ui-button")) {
 							inp.button("enable");
 						} else if (type === "label") {
-							inp.removeClass(this.options.disabledClass)
+							inp.removeClass(this.options.disabledClass);
 						} else {
 							inp.removeAttr("disabled");
 						}
@@ -550,25 +549,25 @@
 			var widgetEventPrefix = this.widgetEventPrefix;
 			// jQuery adds an "events" data attribute on the element when events are registered
 			var events = inp.data("events");
-			if (events !== undefined) { 	
+			if (events !== undefined) {
 				var savedEvents = [];
 				// loop through each event found on the element...
 				$.each(events, function(eventName, handlers) {
-				    $.each(handlers, function(index) {
-				    	var handler = handlers[index];
-				    	if (handler !== undefined) {
-				    		// save the event and handler
-					    	var eventObj = {
-					    		'eventName' : eventName, 
-					    		'handler' : handler
-					    	};
-					    	if (eventName.indexOf(widgetEventPrefix) < 0) {
-					    		// unbinding a non widget event
-						    	savedEvents.push(eventObj);
-						    	inp.unbind(eventName);
-					    	}
-				    	}
-				    });
+					$.each(handlers, function(index) {
+						var handler = handlers[index];
+						if (handler !== undefined) {
+							// save the event and handler
+							var eventObj = {
+								'eventName' : eventName, 
+								'handler' : handler
+							};
+							if (eventName.indexOf(widgetEventPrefix) < 0) {
+								// unbinding a non widget event
+								savedEvents.push(eventObj);
+								inp.unbind(eventName);
+							}
+						}
+					});
 				});
 				// store the saved events as a data attribute on the element
 				inp.data(dataSavedEvents, savedEvents);
@@ -653,7 +652,7 @@
 		},
 	
 		_isNotNullAndNotUndefined : function(obj) {
-			return obj !== undefined && obj != null;
+			return obj !== undefined && obj !== null;
 		},
 		
 		_isNullOrUndefined : function(obj) {
